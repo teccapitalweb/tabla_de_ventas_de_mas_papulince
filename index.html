@@ -107,7 +107,7 @@ function App(){
   const[aStreaks,setAStreaks]=useState({});
   const[tTotal,setTTotal]=useState(0);
   const[tAnim,setTAnim]=useState(false);
-  const actx=React.useRef(null);
+  const loaded=React.useRef(false);
 
   useEffect(()=>{sv(vds,gps,comMXN,comEnd)},[vds,gps,comMXN,comEnd]);
   useEffect(()=>{
@@ -117,12 +117,6 @@ function App(){
   },[comEnd]);
   // Team total
   useEffect(()=>{const t=vds.reduce((s,v)=>s+v.v,0);if(t!==tTotal){setTTotal(t);setTAnim(true);setTimeout(()=>setTAnim(false),600)}},[vds]);
-  // Sounds
-  const pSnd=useCallback((type)=>{try{if(!actx.current)actx.current=new(window.AudioContext||window.webkitAudioContext)();const c=actx.current,g=c.createGain();g.connect(c.destination);
-    if(type==="sell"){g.gain.value=0.15;[800,1000,1200].forEach((f,i)=>{const o=c.createOscillator();o.type="sine";o.frequency.value=f;o.connect(g);o.start(c.currentTime+i*0.08);o.stop(c.currentTime+i*0.08+0.1)})}
-    else if(type==="streak"){g.gain.value=0.12;[600,900,1200,1500].forEach((f,i)=>{const o=c.createOscillator();o.type="triangle";o.frequency.value=f;o.connect(g);o.start(c.currentTime+i*0.06);o.stop(c.currentTime+i*0.06+0.12)})}
-    else if(type==="fanfare"){g.gain.value=0.12;[523,659,784,1047,1047,784,1047].forEach((f,i)=>{const o=c.createOscillator();o.type="square";o.frequency.value=f;o.connect(g);o.start(c.currentTime+i*0.12);o.stop(c.currentTime+i*0.12+0.15)})}
-  }catch(e){}},[]);
   useEffect(()=>{const t=setInterval(()=>setFi(p=>(p+1)%FR.length),5000);return()=>clearInterval(t)},[]);
 
   const gc=new Set();gps.forEach(g=>g.m.forEach(m=>gc.add(m)));
@@ -144,20 +138,17 @@ function App(){
       if(ai>=0&&bi>=0)[a[ai],a[bi]]=[a[bi],a[ai]];return a})}};
 
   const rv=useCallback(id=>{const vv=vds.find(x=>x.id===id);if(!vv)return;
-    setVds(p=>p.map(v=>v.id===id?{...v,v:v.v+1}:v));setPid(id);setTimeout(()=>setPid(null),800);pSnd("sell");
-    const nm=vv.n||vv.c;setFeed(p=>[{id:Date.now(),t:"🔔 "+nm+" cerró una venta — lleva "+(vv.v+1)},...p].slice(0,20));
+    setVds(p=>p.map(v=>v.id===id?{...v,v:v.v+1}:v));setPid(id);setTimeout(()=>setPid(null),800);
     const now=Date.now();setStreaks(p=>{const a=[...(p[id]||[]),now].filter(t=>now-t<180000);const u={...p,[id]:a};
-      if(a.length>=3){setAStreaks(pp=>({...pp,[id]:a.length}));pSnd("streak");setTimeout(()=>setAStreaks(pp=>{const n={...pp};delete n[id];return n}),5000)}return u});
-    const srt=[...vds].map(x=>x.id===id?{...x,v:x.v+1}:x).sort((a,b)=>b.v-a.v);
-    if(srt[0]?.id===id&&srt.length>1&&srt[0].v>srt[1].v&&srt[0].v>1)pSnd("fanfare");
-  },[vds,pSnd]);
+      if(a.length>=3){setAStreaks(pp=>({...pp,[id]:a.length}));setTimeout(()=>setAStreaks(pp=>{const n={...pp};delete n[id];return n}),5000)}return u});
+  },[vds]);
   const qv=useCallback(id=>{setVds(p=>p.map(v=>v.id===id?{...v,v:Math.max(0,v.v-1)}:v))},[]);
 
   const mkCf=()=>{const p=[];for(let i=0;i<150;i++)p.push({id:i,x:Math.random()*100,d:Math.random()*2.5,
     cl:["#FFD700","#FF6B35","#00B4D8","#06D6A0","#EF476F","#7209B7","#F72585","#E50000","#0032BE","#00C98D"][i%10],
     sz:6+Math.random()*12,du:2.5+Math.random()*3});setCf(p)};
 
-  const hr=()=>{const t=bars[0];if(t&&t.v>0){setWin(t);setSc(true);mkCf();pSnd('fanfare')}else dr()};
+  const hr=()=>{const t=bars[0];if(t&&t.v>0){setWin(t);setSc(true);mkCf()}else dr()};
   const dr=()=>{setVds(p=>p.map(v=>({...v,v:0})));setSc(false);setWin(null);setCf([]);setFeed([]);setStreaks({});setAStreaks({})};
 
   const av=()=>{setVds(p=>[...p,{id:gid(),n:nn.trim(),c:nc,v:0}]);setNn("")};
@@ -275,7 +266,7 @@ function App(){
                         animation:ip?"bounce .4s ease":"none",textShadow:"0 0 8px rgba(255,255,255,.8)",zIndex:2}}>{b.v}</div>}
                       {rk===1&&b.v>0&&<div style={{position:"absolute",bottom:Math.max(pct,3)+6+"%",fontSize:18,
                         animation:"bounce 2s ease-in-out infinite",lineHeight:1,zIndex:2}}>👑</div>}
-                      <div className="bfi" style={{width:"80%",maxWidth:56,minWidth:24,
+                      <div className="bfi" style={{width:"85%",maxWidth:72,minWidth:32,
                         position:"absolute",bottom:0,
                         height:Math.max(pct,b.v>0?3:0)+"%",minHeight:b.v>0?8:2,
                         background:"linear-gradient(to top, "+b.cl+", "+b.cl+"dd)",borderRadius:"7px 7px 0 0",
