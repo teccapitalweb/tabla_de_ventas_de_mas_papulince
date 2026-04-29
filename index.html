@@ -15,6 +15,12 @@
     @keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
     @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
     @keyframes popIn{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+    @keyframes fireGlow{0%{box-shadow:0 0 10px #ff4500,0 0 20px #ff6a00,0 0 40px #ff4500}50%{box-shadow:0 0 20px #ff0000,0 0 40px #ff6a00,0 0 60px #ff0000}100%{box-shadow:0 0 10px #ff4500,0 0 20px #ff6a00,0 0 40px #ff4500}}
+    @keyframes warmPulse{0%{box-shadow:0 0 8px #ff9800,0 0 16px #ffc10730}50%{box-shadow:0 0 16px #ff9800,0 0 30px #ffc10750}100%{box-shadow:0 0 8px #ff9800,0 0 16px #ffc10730}}
+    @keyframes coolGlow{0%{box-shadow:0 0 6px #0078b340}50%{box-shadow:0 0 14px #0078b360}100%{box-shadow:0 0 6px #0078b340}}
+    @keyframes textFire{0%{text-shadow:0 0 4px #ff4500,0 0 10px #ff6a00}50%{text-shadow:0 0 8px #ff0000,0 0 20px #ff4500,0 0 30px #ff6a00}100%{text-shadow:0 0 4px #ff4500,0 0 10px #ff6a00}}
+    @keyframes shakeIt{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+    @keyframes countdownPulse{0%,100%{opacity:1}50%{opacity:.7}}
     .bar-touch{cursor:pointer;transition:transform .2s;-webkit-tap-highlight-color:transparent;user-select:none}
     .bar-touch:hover{transform:translateY(-4px)}.bar-touch:active{transform:scale(.96)}
     .bar-touch:hover .bfi{filter:brightness(1.15)}
@@ -58,16 +64,18 @@ const LOGOS={
 };
 const BC={"Zoorigen":"#0078B3","Bioterra":"#00B341","Dermalysse":"#3D6B8E","BioNova":"#00875A","Synova":"#1B3F6E","IMDAC":"#E50000","GlobalVet":"#4B2D87","IMDIIL":"#1C2B4A","Sinergia":"#00C98D","AgroTec":"#04B87B","FisioTeck":"#0E6FB8","OdonTeck":"#2A8B9E","ICADEM":"#0032BE","Visión Pecuaria":"#05733A","Ing. Avícola":"#1781B0"};
 const CS=["Zoorigen","Bioterra","Dermalysse","BioNova","Synova","IMDAC","GlobalVet","IMDIIL","Sinergia","AgroTec","FisioTeck","OdonTeck","ICADEM","Visión Pecuaria","Ing. Avícola"];
-const FR=["El que no cierra, no come.","Hoy es día de comisiones, no de excusas.","Tu competencia está descansando... ¿y tú?","Cada NO te acerca al próximo SÍ.","Las ventas no esperan a nadie.","El éxito no se busca, se construye.","Vender es servir. Servir es ganar.","Un buen vendedor nunca deja de aprender.","La actitud lo es todo. ¡A vender!","Hoy vas a romperla. Yo lo sé.","No vendas productos, vende soluciones.","El seguimiento es donde está el dinero.","Cierra hoy lo que mañana ya no estará.","La disciplina vence al talento.","¡Arriba las ventas, abajo las excusas!","Tu próximo cierre está a una llamada.","Los campeones no nacen, se hacen vendiendo.","Sin acción no hay comisión.","El miedo al NO es el peor enemigo.","Vende como si tu sueño dependiera de ello."];
+const FR=["El que no cierra, no come.","Hoy es día de comisiones, no de excusas.","Tu competencia está descansando... ¿y tú?","Cada NO te acerca al próximo SÍ.","Las ventas no esperan a nadie.","El éxito no se busca, se construye.","Vender es servir. Servir es ganar.","Un buen vendedor nunca deja de aprender.","La actitud lo es todo. ¡A vender!","Hoy vas a romperla. Yo lo sé.","No vendas productos, vende soluciones.","El seguimiento es donde está el dinero.","Cierra hoy lo que mañana ya no estará.","La disciplina vence al talento.","¡Arriba las ventas, abajo las excusas!","Tu próximo cierre está a una llamada.","Los campeones no nacen, se hacen vendiendo.","Sin acción no hay comisión.","El miedo al NO es el peor enemigo.","Vende como si tu sueño dependiera de ello.","El cliente no compra el producto, compra tu energía.","Mientras tú dudas, otro ya cerró.","La constancia es el secreto de los que más venden.","Un vendedor con hambre siempre encuentra la manera.","No esperes el momento perfecto, créalo.","Hoy no se descansa, hoy se factura.","Tu actitud determina tu altitud en ventas.","Quien más siembra, más cosecha.","Cada llamada es una oportunidad disfrazada.","El éxito es la suma de pequeños esfuerzos repetidos.","No le temas al rechazo, témele a no intentarlo.","Un día sin prospectar es un día perdido.","Los resultados hablan más que las palabras.","Tu cartera se llena cuando tu agenda está llena.","La venta comienza cuando el cliente dice NO.","No vendas por vender, vende por convicción.","Hoy es un gran día para romper tu récord.","Los que más cierran son los que más intentan.","Si no estás creciendo, te estás quedando atrás.","La preparación de hoy es el cierre de mañana.","Un vendedor sin metas es un barco sin rumbo.","El mejor momento para vender fue ayer. El segundo mejor es ahora.","No busques clientes para tu producto, busca productos para tu cliente.","La persistencia abre puertas que el talento solo no puede.","Vender no es presionar, es conectar.","Cada objeción es una pregunta sin respuesta.","Sé tan bueno que no puedan ignorarte.","Los límites están en tu mente, no en tu mercado.","La confianza se construye, la venta se cierra.","Un cliente satisfecho vale más que cien prospectos fríos.","Haz hoy lo que otros no quieren, vive mañana como otros no pueden.","La suerte favorece al vendedor preparado.","No cuentes los días, haz que los días cuenten.","El profesionalismo se nota, la mediocridad también.","Si crees que puedes, ya llevas medio cierre ganado.","La energía que transmites es la venta que cierras.","Más vale un cierre hoy que dos promesas mañana.","El hambre de éxito se alimenta con acción.","Escucha más, habla menos, cierra mejor.","Tu peor competencia eres tú sin motivación.","Cada día es una oportunidad de ser el número uno.","El que persevera, factura.","Vende con pasión y el dinero llegará solo.","No hay atajos en las ventas, solo trabajo duro.","Un vendedor enfocado es un vendedor imparable.","La diferencia entre ordinario y extraordinario es ese extra.","Cuando sientas que no puedes, recuerda por qué empezaste.","Las excusas no pagan comisiones.","Si tu producto cambia vidas, es tu deber venderlo.","El rechazo es temporal, el arrepentimiento es permanente.","Sé la razón por la que tu cliente sonríe hoy.","La meta no es vender, es que te vuelvan a buscar.","Invierte en ti y tus ventas te lo devolverán.","El vendedor que aprende, el vendedor que gana.","Hoy alguien necesita lo que tú ofreces. ¡Encuéntralo!","No te rindas. Los mejores cierres llegan al final del día.","La clave no es trabajar más, es trabajar con intención.","Tus resultados reflejan tu compromiso.","Celebra cada venta, por pequeña que sea.","El éxito en ventas es un maratón, no un sprint.","El teléfono no muerde. ¡Llama ya!","Tu cliente ideal te está buscando. No lo dejes esperando.","Las objeciones son oportunidades disfrazadas.","Quien domina su mente, domina sus ventas.","Piensa en grande, vende más grande.","La velocidad mata la duda del cliente.","No vendas precio, vende valor.","Tu sonrisa es tu mejor herramienta de cierre.","El vendedor que no se rinde siempre gana.","Hoy es el día que tu futuro yo te agradecerá.","Ningún prospecto es pequeño si sabes darle seguimiento.","Lo que no mides, no mejora. Mide tus ventas.","El hambre no se negocia, se satisface vendiendo.","Si no cierras tú, cierra tu competencia.","Vende hoy para disfrutar mañana.","La queja no vende. La solución sí.","No hay cliente difícil, hay vendedor sin estrategia.","Levántate temprano, el dinero madruga.","Los mejores vendedores son los mejores oyentes.","Un cierre más, una preocupación menos.","No vendas características, vende transformación.","Tu siguiente venta puede cambiar tu mes entero.","El NO de hoy es el SÍ de mañana si das seguimiento.","No necesitas suerte, necesitas preparación.","El cliente compra confianza antes que producto.","Trabaja como si nadie te viera, vende como si todos te miraran.","El vendedor débil busca excusas, el fuerte busca soluciones.","Deja de planear y empieza a ejecutar.","Tus ventas son el reflejo de tu esfuerzo.","No hay techo para quien vende con pasión.","El que mucho abarca, mucho factura.","¿Cansado? Descansa. ¿Rendido? Jamás.","Cada prospecto merece tu mejor versión.","El éxito no es casualidad, es causalidad.","Vendedor que no prospecta, vendedor que no come.","Tu energía es contagiosa. Úsala para cerrar.","No te compares con otros. Supera tu récord anterior.","El dinero sigue al valor. Crea valor primero.","Sé el vendedor que tú mismo contratarías.","El cliente no quiere que le vendan, quiere que le ayuden.","La disciplina de las 8 horas vence al talento de 2.","Tu peor día vendiendo supera tu mejor día sin hacer nada.","El precio se olvida, la calidad se recuerda.","Hazlo con miedo pero hazlo. La venta espera.","Quien se queda en su zona de confort no crece.","La calle enseña más que cualquier curso.","No pidas permiso para ser el mejor.","Hoy no hay pretextos, solo resultados.","El mercado premia a los que se mueven.","Vendedor sin agenda es turista del trabajo.","Aprende de cada NO, festeja cada SÍ.","No vendas lo que tienes, vende lo que el cliente necesita.","Tu próxima comisión está esperándote. Ve por ella.","No te detengas hasta que tu cuenta bancaria sonría.","Los clientes recuerdan cómo los hiciste sentir.","El éxito se construye venta a venta.","Si quieres resultados diferentes, haz cosas diferentes.","La primera hora del día define las últimas ocho.","Un vendedor positivo atrae clientes positivos.","Sé imparable. Sé incansable. Sé vendedor.","El seguimiento convierte prospectos en clientes.","Tu palabra vale más que cualquier contrato.","El que no arriesga, no vende.","El cliente feliz es tu mejor publicidad.","Haz de cada interacción una experiencia memorable.","Vende con ética y el mercado te recompensará.","Los grandes vendedores se hacen, no nacen.","No importa de dónde vienes, importa cuánto vendes hoy.","El éxito llama al éxito. Cierra uno y vendrán más.","Tu mejor inversión es el conocimiento de tu producto.","Mientras otros se quejan del mercado, tú conquístalo.","La empatía cierra más ventas que la presión.","Si no lo intentas, la respuesta siempre será NO.","Conviértete en la primera opción, no en la última.","La venta no termina en el cierre, empieza ahí.","Cada mañana tienes una nueva oportunidad de facturar.","No permitas que un mal día defina tu semana.","Los clientes no compran productos, compran historias.","Persiste cuando otros abandonan y ganarás cuando otros pierdan.","Tú eres tu marca. Véndela con orgullo.","El tiempo que gastas dudando, otro lo usa cerrando.","Las ventas se cierran con confianza, no con descuentos.","Un vendedor apasionado vende sin esfuerzo.","El respeto del cliente se gana con resultados.","No importa cuántas veces caigas, importa cuántas te levantas a vender.","La gratitud multiplica las oportunidades.","Si puedes soñarlo, puedes venderlo.","La mejor estrategia es la acción constante.","No seas vendedor de un día, sé vendedor de carrera.","El que siembra relaciones, cosecha ventas.","Tu determinación es más fuerte que cualquier rechazo.","Cada cliente es un mundo. Adáptate y conquista.","El vendedor que escucha, cierra.","No hay mercado malo para un buen vendedor.","Levántate, sonríe y sal a facturar.","La excelencia no es un acto, es un hábito de ventas.","Lo imposible es solo lo que nadie ha intentado vender.","Deja huella en cada cliente, no solo una factura.","La competencia te hace mejor. Agradécela.","Vende soluciones, cobra resultados.","Hoy es lunes de oportunidades, no de quejas.","El profesional vende todos los días, el amateur solo cuando quiere.","Conecta primero, vende después.","Tu compromiso con el cliente define tu éxito.","El vendedor inteligente trabaja su mente antes que su cartera.","No vendas por necesidad, vende por vocación.","Las metas grandes requieren esfuerzos grandes.","Sé la solución que tu cliente anda buscando.","Vender es un arte. Practica todos los días.","Hoy es un gran día para hacer historia en ventas.","Tu actitud al teléfono se escucha. Sonríe al marcar.","La diferencia entre querer y poder es vender.","Vendedor que lee, vendedor que lidera.","Hoy no vine a participar, vine a ganar.","El mercado recompensa a los persistentes.","Donde otros ven crisis, tú ve oportunidad.","No vendas miedo, vende esperanza.","Un prospecto al día mantiene la quiebra lejos.","La mejor versión de ti cierra ventas que hoy no imaginas.","A darle que es mole de olla. ¡A vender!"];
 function gid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,6)}
 function ld(){try{return JSON.parse(localStorage.getItem("tablero-ipci"))||null}catch(e){return null}}
-function sv(v,g){try{localStorage.setItem("tablero-ipci",JSON.stringify({v,g}))}catch(e){}}
+function sv(v,g,cp,ce){try{localStorage.setItem("tablero-ipci",JSON.stringify({v,g,cp,ce}))}catch(e){}}
 const initV=CS.map((c,i)=>({id:gid()+i,n:"",c:c,v:0}));
 
 function App(){
   const s0=useRef(ld());
   const[vds,setVds]=useState(s0.current?.v?.length?s0.current.v:initV);
   const[gps,setGps]=useState(s0.current?.g||[]);
+  const comInit=s0.current;
+  useEffect(()=>{if(comInit?.cp)setComMXN(comInit.cp);if(comInit?.ce&&comInit.ce>Date.now())setComEnd(comInit.ce)},[]);
   const[fi,setFi]=useState(0);
   const[sa,setSa]=useState(false);
   const[at,setAt]=useState("ventas");
@@ -84,8 +92,17 @@ function App(){
   const[gn,setGn]=useState("");
   const[gs,setGs]=useState([]);
   const[eg,setEg]=useState(null);
+  const[comMXN,setComMXN]=useState(12);
+  const[comEnd,setComEnd]=useState(null);
+  const[comTL,setComTL]=useState(null);
+  const[comH,setComH]=useState(9);
 
-  useEffect(()=>{sv(vds,gps)},[vds,gps]);
+  useEffect(()=>{sv(vds,gps,comMXN,comEnd)},[vds,gps,comMXN,comEnd]);
+  useEffect(()=>{
+    if(!comEnd){setComTL(null);return}
+    const tick=()=>{const l=Math.max(0,Math.floor((comEnd-Date.now())/1000));setComTL(l);if(l<=0)setComEnd(null)};
+    tick();const i=setInterval(tick,1000);return()=>clearInterval(i);
+  },[comEnd]);
   useEffect(()=>{const t=setInterval(()=>setFi(p=>(p+1)%FR.length),5000);return()=>clearInterval(t)},[]);
 
   const gc=new Set();gps.forEach(g=>g.m.forEach(m=>gc.add(m)));
@@ -122,6 +139,13 @@ function App(){
   const seg=g=>{setEg(g.id);setGn(g.nm);setGs([...g.m])};
   const svg=()=>{if(gs.length<2)return;const nm=gn.trim()||gs.join(" + ");
     setGps(p=>p.map(g=>g.id===eg?{...g,nm,m:[...gs]}:g));setEg(null);setGn("");setGs([])};
+
+  const startTmr=()=>{setComEnd(Date.now()+comH*3600*1000)};
+  const stopTmr=()=>{setComEnd(null);setComTL(null)};
+  const cLv=comMXN<=17?"low":comMXN<=24?"mid":"high";
+  const fmtT=s=>{if(s==null)return"--:--:--";const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;
+    return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(ss).padStart(2,"0")};
+  const tmrOn=comEnd&&comTL>0;
 
   const st=mx<=5?1:mx<=20?5:mx<=50?10:Math.ceil(mx/5/10)*10;
   const gl=[];for(let i=st;i<=mx+st;i+=st)gl.push(i);
@@ -161,35 +185,59 @@ function App(){
             <h1 style={{fontSize:26,fontWeight:900,color:"#1a1a2e"}}>Tablero de Ventas</h1>
             <div style={{fontSize:11,color:"#999",fontWeight:600,letterSpacing:2,textTransform:"uppercase",marginTop:2}}>IPCI — Instituto Profesional de Certificación Industrial</div>
           </div>
-          <div style={{textAlign:"center",margin:"8px auto 12px",padding:"9px 20px",background:"#fff",borderRadius:10,border:"1px solid #eee",maxWidth:500,boxShadow:"0 1px 4px rgba(0,0,0,.04)"}}>
-            <div key={fi} style={{fontSize:14,fontStyle:"italic",color:"#0078B3",fontWeight:600,animation:"fadePhrase 5s ease-in-out"}}>"{FR[fi]}"</div>
+          <div style={{display:"flex",gap:10,margin:"10px 0 14px",alignItems:"stretch"}}>
+            <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",padding:"14px 20px",background:"#fff",borderRadius:14,border:"1px solid #eee",boxShadow:"0 2px 8px rgba(0,0,0,.06)",minHeight:70}}>
+              <div key={fi} style={{fontSize:22,fontStyle:"italic",color:"#0078B3",fontWeight:700,animation:"fadePhrase 5s ease-in-out",lineHeight:1.3,textAlign:"center"}}>"{FR[fi]}"</div>
+            </div>
+            {tmrOn&&(
+              <div style={{width:220,flexShrink:0,padding:"10px 14px",borderRadius:14,textAlign:"center",position:"relative",overflow:"hidden",
+                background:cLv==="high"?"linear-gradient(135deg,#ff0000,#ff6a00,#ff0000)":cLv==="mid"?"linear-gradient(135deg,#ff9800,#ffc107,#ff9800)":"linear-gradient(135deg,#0078B3,#00B4D8,#0078B3)",
+                animation:cLv==="high"?"fireGlow 1.5s ease-in-out infinite, shakeIt 0.3s ease-in-out infinite":cLv==="mid"?"warmPulse 2s ease-in-out infinite":"coolGlow 3s ease-in-out infinite",
+                color:"#fff",display:"flex",flexDirection:"column",justifyContent:"center"}}>
+                {cLv==="high"&&<div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(255,0,0,0.2) 0%,transparent 50%,rgba(255,100,0,0.15) 100%)",pointerEvents:"none"}}/>}
+                <div style={{position:"relative",zIndex:1}}>
+                  <div style={{fontSize:10,fontWeight:700,opacity:0.9,letterSpacing:1.5,textTransform:"uppercase",marginBottom:2}}>
+                    {cLv==="high"?"🔥 COMISIÓN MÁXIMA 🔥":cLv==="mid"?"⚡ COMISIÓN ESPECIAL ⚡":"💎 COMISIÓN"}</div>
+                  <div style={{fontSize:cLv==="high"?34:30,fontWeight:900,lineHeight:1.1,
+                    animation:cLv==="high"?"textFire 1s ease-in-out infinite":"none",
+                    textShadow:cLv==="mid"?"0 0 10px rgba(255,255,255,0.5)":"0 2px 4px rgba(0,0,0,0.2)"}}>{"$"+comMXN+" MXN"}</div>
+                  <div style={{fontSize:11,fontWeight:700,marginTop:2,animation:cLv==="high"?"shakeIt 0.5s ease-in-out infinite":"none"}}>
+                    {cLv==="high"?"¡¡VENDE AHORA!!":cLv==="mid"?"¡Aprovecha!":"Por venta"}</div>
+                  <div style={{marginTop:4,fontSize:18,fontWeight:900,fontFamily:"'Courier New',monospace",letterSpacing:2,
+                    animation:comTL<3600?"countdownPulse 1s ease-in-out infinite":"none",
+                    color:comTL<3600?"#FFD700":"#fff"}}>{"⏱ "+fmtT(comTL)}</div>
+                  {comTL<3600&&<div style={{fontSize:10,fontWeight:700,marginTop:1,color:"#FFD700",animation:"shakeIt 0.4s infinite"}}>¡ÚLTIMA HORA!</div>}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* CHART */}
-          <div style={{flex:1,background:"#fff",borderRadius:16,padding:"18px 12px 10px",boxShadow:"0 2px 12px rgba(0,0,0,.06)",border:"1px solid #eee",display:"flex",flexDirection:"column",minHeight:200}}>
-            <div style={{flex:1,display:"flex",minHeight:180,position:"relative"}}>
-              <div style={{width:36,position:"relative",flexShrink:0}}>
+          <div style={{background:"#fff",borderRadius:16,padding:"18px 12px 10px",boxShadow:"0 2px 12px rgba(0,0,0,.06)",border:"1px solid #eee",display:"flex",flexDirection:"column"}}>
+            <div style={{display:"flex",height:"55vh",minHeight:300,maxHeight:550,position:"relative"}}>
+              <div style={{width:36,position:"relative",flexShrink:0,height:"100%"}}>
                 {gl.map(v=><div key={v} style={{position:"absolute",bottom:(v/cm)*100+"%",right:4,fontSize:10,color:"#bbb",fontWeight:600,transform:"translateY(50%)"}}>{v}</div>)}
                 <div style={{position:"absolute",bottom:0,right:4,fontSize:10,color:"#bbb",fontWeight:600,transform:"translateY(50%)"}}>0</div>
               </div>
-              <div style={{flex:1,display:"flex",alignItems:"flex-end",gap:2,position:"relative",borderLeft:"2px solid #e0e0e0",borderBottom:"2px solid #e0e0e0",paddingBottom:2}}>
+              <div style={{flex:1,display:"flex",gap:2,position:"relative",borderLeft:"2px solid #e0e0e0",borderBottom:"2px solid #e0e0e0",height:"100%"}}>
                 {gl.map(v=><div key={v} style={{position:"absolute",left:0,right:0,bottom:(v/cm)*100+"%",borderTop:"1px dashed #f0f0f0",zIndex:0}}/>)}
                 {bars.map((b,idx)=>{
                   const pct=(b.v/cm)*100;const ip=b.vi.includes(pid);const is=sb===b.id;const rk=idx+1;
                   return(
                     <div key={b.id} className="bar-touch" onClick={()=>setSb(is?null:b.id)}
                       style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"flex-end",
-                        position:"relative",zIndex:1,minWidth:0,padding:"0 2px",minHeight:"100%"}}>
-                      {b.v>0&&<div style={{fontSize:13,fontWeight:800,color:b.cl,marginBottom:2,
-                        animation:ip?"bounce .4s ease":"none",textShadow:"0 0 8px rgba(255,255,255,.8)"}}>{b.v}</div>}
-                      {rk===1&&b.v>0&&<div style={{fontSize:18,marginBottom:1,animation:"bounce 2s ease-in-out infinite",lineHeight:1}}>👑</div>}
+                        position:"relative",zIndex:1,minWidth:0,padding:"0 2px",height:"100%"}}>
+                      {b.v>0&&<div style={{position:"absolute",bottom:Math.max(pct,3)+1+"%",fontSize:13,fontWeight:800,color:b.cl,
+                        animation:ip?"bounce .4s ease":"none",textShadow:"0 0 8px rgba(255,255,255,.8)",zIndex:2}}>{b.v}</div>}
+                      {rk===1&&b.v>0&&<div style={{position:"absolute",bottom:Math.max(pct,3)+6+"%",fontSize:18,
+                        animation:"bounce 2s ease-in-out infinite",lineHeight:1,zIndex:2}}>👑</div>}
                       <div className="bfi" style={{width:"80%",maxWidth:56,minWidth:24,
-                        height:Math.max(pct,b.v>0?3:0)+"%",minHeight:b.v>0?10:4,
+                        position:"absolute",bottom:0,
+                        height:Math.max(pct,b.v>0?3:0)+"%",minHeight:b.v>0?8:2,
                         background:"linear-gradient(to top, "+b.cl+", "+b.cl+"dd)",borderRadius:"7px 7px 0 0",
                         transition:"height .8s cubic-bezier(.34,1.56,.64,1)",
                         animation:ip?"pulseBar .6s ease":"none",
                         boxShadow:is?"0 0 0 3px "+b.cl+"50, 0 4px 20px "+b.cl+"40":"0 2px 8px "+b.cl+"25"}}/>
-                      <div style={{width:"100%",height:8}}/>
                     </div>);
                 })}
               </div>
@@ -249,7 +297,7 @@ function App(){
         {sa&&(
           <div className="sb" style={{width:330,background:"#fafafa",borderLeft:"1px solid #eee",padding:16,overflowY:"auto",animation:"slideIn .3s ease-out"}}>
             <div style={{display:"flex",gap:4,marginBottom:14}}>
-              {[["ventas","📊 Ventas"],["grupos","🔗 Grupos"],["manage","✏️ Editar"]].map(([k,l])=>(
+              {[["ventas","📊"],["grupos","🔗"],["comision","💰"],["manage","✏️"]].map(([k,l])=>(
                 <button key={k} className="tab-btn" onClick={()=>setAt(k)}
                   style={{background:at===k?"#0078B3":"#eee",color:at===k?"#fff":"#666",flex:1}}>{l}</button>))}
             </div>
@@ -306,6 +354,54 @@ function App(){
                   </div>
                 </div>)}
                 {gps.length===0&&<div style={{textAlign:"center",padding:20,color:"#bbb",fontSize:13}}>No hay grupos. Selecciona 2+ consultoras y únelas.</div>}
+              </div>
+            )}
+
+            {at==="comision"&&(
+              <div style={{display:"flex",flexDirection:"column",gap:12}}>
+                <div className="card">
+                  <div style={{fontSize:11,fontWeight:700,marginBottom:10,color:"#888",letterSpacing:1}}>COMISIÓN POR VENTA (MXN)</div>
+                  <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:12}}>
+                    <button className="btn-a" onClick={()=>setComMXN(p=>Math.max(12,p-1))}
+                      style={{width:40,height:40,background:"#fee",color:"#e55",fontSize:20,padding:0,borderRadius:10}}>−</button>
+                    <div style={{flex:1,textAlign:"center",fontSize:44,fontWeight:900,
+                      color:cLv==="high"?"#e50000":cLv==="mid"?"#ff9800":"#0078B3"}}>{"$"+comMXN}</div>
+                    <button className="btn-a" onClick={()=>setComMXN(p=>Math.min(30,p+1))}
+                      style={{width:40,height:40,background:cLv==="high"?"#e50000":cLv==="mid"?"#ff9800":"#0078B3",
+                        color:"#fff",fontSize:20,padding:0,borderRadius:10}}>+</button>
+                  </div>
+                  <input type="range" min="12" max="30" value={comMXN} onChange={e=>setComMXN(Number(e.target.value))}
+                    style={{width:"100%",marginBottom:8,accentColor:cLv==="high"?"#e50000":cLv==="mid"?"#ff9800":"#0078B3"}}/>
+                  <div style={{display:"flex",justifyContent:"space-between",fontSize:11,color:"#aaa",fontWeight:600}}>
+                    <span>$12-17 💎</span><span>$18-24 ⚡</span><span>$25-30 🔥</span></div>
+                </div>
+                <div className="card">
+                  <div style={{fontSize:11,fontWeight:700,marginBottom:10,color:"#888",letterSpacing:1}}>TEMPORIZADOR</div>
+                  {tmrOn?(
+                    <div style={{textAlign:"center"}}>
+                      <div style={{fontSize:36,fontWeight:900,fontFamily:"'Courier New',monospace",
+                        color:cLv==="high"?"#e50000":cLv==="mid"?"#ff9800":"#0078B3",letterSpacing:3,marginBottom:10}}>{fmtT(comTL)}</div>
+                      <button className="btn-a" onClick={stopTmr}
+                        style={{width:"100%",background:"#fee",color:"#e55",padding:10,fontSize:14,borderRadius:8}}>⏹ Detener</button>
+                    </div>
+                  ):(
+                    <div>
+                      <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
+                        <button className="btn-a" onClick={()=>setComH(p=>Math.max(1,p-1))}
+                          style={{width:36,height:36,background:"#eee",color:"#666",fontSize:18,padding:0,borderRadius:8}}>−</button>
+                        <div style={{flex:1,textAlign:"center",fontSize:32,fontWeight:900,color:"#333"}}>{comH}h</div>
+                        <button className="btn-a" onClick={()=>setComH(p=>Math.min(24,p+1))}
+                          style={{width:36,height:36,background:"#eee",color:"#666",fontSize:18,padding:0,borderRadius:8}}>+</button>
+                      </div>
+                      <button className="btn-a" onClick={startTmr}
+                        style={{width:"100%",
+                          background:cLv==="high"?"linear-gradient(135deg,#e50000,#ff6a00)":cLv==="mid"?"linear-gradient(135deg,#ff9800,#ffc107)":"linear-gradient(135deg,#0078B3,#00B4D8)",
+                          color:"#fff",padding:12,fontSize:15,fontWeight:800,borderRadius:10}}>
+                        {"🚀 Activar $"+comMXN+" por "+comH+"h"}
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
 
