@@ -131,9 +131,17 @@ function App(){
     gps.forEach(g=>{const mv=vds.filter(v=>g.m.includes(v.c));const tv=mv.reduce((s,v)=>s+v.v,0);
       b.push({t:"g",id:g.id,nm:g.nm,cs:g.m,v:tv,cl:BC[g.m[0]]||"#666",vi:mv.map(v=>v.id)})});
     vds.forEach(v=>{if(!gc.has(v.c))b.push({t:"i",id:v.id,nm:v.n||v.c,cs:[v.c],v:v.v,cl:BC[v.c]||"#666",vi:[v.id]})});
-    return b.sort((a,b)=>b.v-a.v);
+    return b;
   };
   const bars=mkBars();const mx=Math.max(...bars.map(b=>b.v),1);
+  const rkIds=[...bars].sort((a,b)=>b.v-a.v).map(b=>b.id);
+  const gRk=id=>rkIds.indexOf(id)+1;
+  const mvBar=(bid,dir)=>{const i=bars.findIndex(b=>b.id===bid);if(i<0)return;const ni=i+dir;if(ni<0||ni>=bars.length)return;
+    const bar=bars[i],sw=bars[ni];
+    if(bar.t==="i"&&sw.t==="i"){setVds(p=>{const a=[...p];const ai=a.findIndex(v=>v.id===bar.id);const bi=a.findIndex(v=>v.id===sw.id);
+      if(ai>=0&&bi>=0)[a[ai],a[bi]]=[a[bi],a[ai]];return a})}
+    else if(bar.t==="g"&&sw.t==="g"){setGps(p=>{const a=[...p];const ai=a.findIndex(g=>g.id===bar.id);const bi=a.findIndex(g=>g.id===sw.id);
+      if(ai>=0&&bi>=0)[a[ai],a[bi]]=[a[bi],a[ai]];return a})}};
 
   const rv=useCallback(id=>{const vv=vds.find(x=>x.id===id);if(!vv)return;
     setVds(p=>p.map(v=>v.id===id?{...v,v:v.v+1}:v));setPid(id);setTimeout(()=>setPid(null),800);pSnd("sell");
@@ -217,10 +225,6 @@ function App(){
               </div>
               <button className="btn-a" onClick={()=>setFs(f=>!f)} style={{width:36,height:36,background:"#fff",color:"#666",fontSize:16,padding:0,borderRadius:8,border:"1px solid #ddd"}}>{fs?"✕":"📺"}</button>
             </div>
-            <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"linear-gradient(135deg,#1a1a2e,#2d1b69)",borderRadius:12,padding:"8px 24px",marginTop:8,animation:tAnim?"teamPop .5s ease":"none"}}>
-              <span style={{fontSize:13,color:"rgba(255,255,255,0.7)",fontWeight:600}}>VENTAS DEL EQUIPO</span>
-              <span key={tTotal} style={{fontSize:fs?36:28,fontWeight:900,color:"#FFD700",fontFamily:"'Courier New',monospace",letterSpacing:2,animation:tAnim?"numberRoll .4s ease":"none"}}>{tTotal}</span>
-            </div>
           </div>
           <div style={{display:"flex",gap:10,margin:"10px 0 14px",alignItems:"stretch"}}>
             <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",padding:"14px 20px",background:"#fff",borderRadius:14,border:"1px solid #eee",boxShadow:"0 2px 8px rgba(0,0,0,.06)",minHeight:70}}>
@@ -259,7 +263,7 @@ function App(){
               <div style={{flex:1,display:"flex",gap:2,position:"relative",borderLeft:"2px solid #e0e0e0",borderBottom:"2px solid #e0e0e0",height:"100%"}}>
                 {gl.map(v=><div key={v} style={{position:"absolute",left:0,right:0,bottom:(v/cm)*100+"%",borderTop:"1px dashed #f0f0f0",zIndex:0}}/>)}
                 {bars.map((b,idx)=>{
-                  const pct=(b.v/cm)*100;const ip=b.vi.includes(pid);const is=sb===b.id;const rk=idx+1;
+                  const pct=(b.v/cm)*100;const ip=b.vi.includes(pid);const is=sb===b.id;const rk=gRk(b.id);
                   return(
                     <div key={b.id} className="bar-touch" onClick={()=>setSb(is?null:b.id)}
                       style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"flex-end",
@@ -274,10 +278,10 @@ function App(){
                       <div className="bfi" style={{width:"80%",maxWidth:56,minWidth:24,
                         position:"absolute",bottom:0,
                         height:Math.max(pct,b.v>0?3:0)+"%",minHeight:b.v>0?8:2,
-                        background:rk===1&&b.v>0?"linear-gradient(to top, "+b.cl+", #FFD700aa, "+b.cl+"dd)":"linear-gradient(to top, "+b.cl+", "+b.cl+"dd)",borderRadius:"7px 7px 0 0",
+                        background:"linear-gradient(to top, "+b.cl+", "+b.cl+"dd)",borderRadius:"7px 7px 0 0",
                         transition:"height .8s cubic-bezier(.34,1.56,.64,1)",
-                        animation:rk===1&&b.v>0?"leaderFire 1.5s ease-in-out infinite":ip?"pulseBar .6s ease":"none",
-                        boxShadow:is?"0 0 0 3px "+b.cl+"50, 0 4px 20px "+b.cl+"40":rk===1&&b.v>0?"0 0 12px #FFD700, 0 0 24px "+b.cl+"40":"0 2px 8px "+b.cl+"25"}}/>
+                        animation:ip?"pulseBar .6s ease":"none",
+                        boxShadow:is?"0 0 0 3px "+b.cl+"50, 0 4px 20px "+b.cl+"40":"0 2px 8px "+b.cl+"25"}}/>
                     </div>);
                 })}
               </div>
@@ -339,7 +343,7 @@ function App(){
         {sa&&!fs&&(
           <div className="sb" style={{width:330,background:"#fafafa",borderLeft:"1px solid #eee",padding:16,overflowY:"auto",animation:"slideIn .3s ease-out"}}>
             <div style={{display:"flex",gap:4,marginBottom:14}}>
-              {[["ventas","📊"],["grupos","🔗"],["comision","💰"],["manage","✏️"]].map(([k,l])=>(
+              {[["ventas","📊"],["grupos","🔗"],["comision","💰"],["orden","↕️"],["manage","✏️"]].map(([k,l])=>(
                 <button key={k} className="tab-btn" onClick={()=>setAt(k)}
                   style={{background:at===k?"#0078B3":"#eee",color:at===k?"#fff":"#666",flex:1}}>{l}</button>))}
             </div>
@@ -443,6 +447,33 @@ function App(){
                       </button>
                     </div>
                   )}
+                </div>
+              </div>
+            )}
+
+            {at==="orden"&&(
+              <div className="card">
+                <div style={{fontSize:11,fontWeight:700,marginBottom:10,color:"#888",letterSpacing:1}}>ORDEN DE LAS BARRAS</div>
+                <div style={{fontSize:12,color:"#aaa",marginBottom:10}}>Usa las flechas para mover</div>
+                <div style={{display:"flex",flexDirection:"column",gap:4}}>
+                  {bars.map((b,idx)=>(
+                    <div key={b.id} style={{display:"flex",alignItems:"center",gap:6,padding:"6px 8px",
+                      background:gRk(b.id)===1&&b.v>0?"#FFF8E1":"#f5f5f5",borderRadius:8,border:"1px solid #eee"}}>
+                      <div style={{display:"flex",flexDirection:"column",gap:1}}>
+                        <button className="btn-a" onClick={()=>mvBar(b.id,-1)} disabled={idx===0}
+                          style={{width:24,height:20,background:idx===0?"#eee":"#0078B3",color:idx===0?"#ccc":"#fff",fontSize:12,padding:0,borderRadius:4}}>▲</button>
+                        <button className="btn-a" onClick={()=>mvBar(b.id,1)} disabled={idx===bars.length-1}
+                          style={{width:24,height:20,background:idx===bars.length-1?"#eee":"#0078B3",color:idx===bars.length-1?"#ccc":"#fff",fontSize:12,padding:0,borderRadius:4}}>▼</button>
+                      </div>
+                      <div style={{width:4,height:30,borderRadius:2,background:b.cl,flexShrink:0}}/>
+                      {LOGOS[b.cs[0]]&&<img src={LOGOS[b.cs[0]]} alt="" style={{width:26,height:26,borderRadius:5}}/>}
+                      <div style={{flex:1,minWidth:0}}>
+                        <div style={{fontSize:13,fontWeight:700,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{b.nm}</div>
+                        <div style={{fontSize:11,color:"#888"}}>{b.v+" ventas "+(gRk(b.id)===1&&b.v>0?"👑":"")}</div>
+                      </div>
+                      <div style={{fontSize:16,fontWeight:900,color:b.cl}}>{idx+1}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
